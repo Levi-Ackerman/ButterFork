@@ -2,8 +2,12 @@ package com.example;
 
 import com.google.auto.service.AutoService;
 
+import java.lang.reflect.Modifier;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -21,26 +25,45 @@ import javax.lang.model.util.Elements;
 public class BindProcess extends AbstractProcessor{
     private Elements mElementsUtil;
 
+    /**
+     * key:     eclosed elemnt
+     * value:   inner views with BindView annotation
+     */
+    private Map<Element,Set<Element>> mElems;
+
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
         mElementsUtil = processingEnv.getElementUtils();
+        mElems = new HashMap<>();
     }
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> types = new HashSet<>();
         types.add(BindView.class.getCanonicalName());
-        types.add(BindActivity.class.getCanonicalName());
         return types;
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        for (Element element : roundEnv.getElementsAnnotatedWith(BindView.class)) {
-            System.out.println(element);
-        }
         System.out.println("Process start !");
+        initBindElems(roundEnv.getElementsAnnotatedWith(BindView.class));
+        System.out.println("Process finish !");
         return false;
+    }
+
+    private void initBindElems(Set<? extends Element> bindElems) {
+        for (Element bindElem : bindElems) {
+            Element enclosedElem = bindElem.getEnclosingElement();
+            Set<Element> elems = mElems.get(enclosedElem);
+            if (elems == null){
+                elems=  new HashSet<>();
+                mElems.put(enclosedElem,elems);
+                System.out.println("Add enclose elem "+enclosedElem.getSimpleName());
+            }
+            elems.add(bindElem);
+            System.out.println("Add bind elem "+bindElem.getSimpleName());
+        }
     }
 }
