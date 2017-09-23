@@ -1,12 +1,15 @@
 package com.example;
 
 import com.google.auto.service.AutoService;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
-import java.lang.reflect.Modifier;
-import java.util.Collections;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,6 +20,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
@@ -29,7 +33,7 @@ public class BindProcess extends AbstractProcessor{
      * key:     eclosed elemnt
      * value:   inner views with BindView annotation
      */
-    private Map<Element,Set<Element>> mElems;
+    private Map<TypeElement,Set<Element>> mElems;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -48,14 +52,40 @@ public class BindProcess extends AbstractProcessor{
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         System.out.println("Process start !");
+
         initBindElems(roundEnv.getElementsAnnotatedWith(BindView.class));
+        generateJavaClass();
+
         System.out.println("Process finish !");
-        return false;
+        return true;
+    }
+
+    private void generateJavaClass() {
+        for (TypeElement enclosedElem : mElems.keySet()) {
+            MethodSpec.Builder methodSpecBuilder = MethodSpec.methodBuilder("bindView")
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                    .addParameter(ClassName.get(enclosedElem.asType()),"activity")
+                    .returns(TypeName.VOID);
+            for (Element bindElem : mElems.get(enclosedElem)) {
+                methodSpecBuilder.addStatement(String.format("activity.%s = (%s)activity.findViewById(%d)",bindElem.getSimpleName(),bindElem.asType(),bindElem.getAnnotation(BindView.class).value()));
+            }
+            TypeSpec typeSpec = TypeSpec.classBuilder("Bind"+enclosedElem.getSimpleName())
+                    .superclass(TypeName.get(enclosedElem.asType()))
+                    .addModifiers(Modifier.FINAL,Modifier.PUBLIC)
+                    .addMethod(methodSpecBuilder.build())
+                    .build();
+            JavaFile file = JavaFile.builder(getPackageName(enclosedElem),typeSpec).build();
+            try {
+                file.writeTo(processingEnv.getFiler());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void initBindElems(Set<? extends Element> bindElems) {
         for (Element bindElem : bindElems) {
-            Element enclosedElem = bindElem.getEnclosingElement();
+            TypeElement enclosedElem = (TypeElement) bindElem.getEnclosingElement();
             Set<Element> elems = mElems.get(enclosedElem);
             if (elems == null){
                 elems=  new HashSet<>();
@@ -65,5 +95,9 @@ public class BindProcess extends AbstractProcessor{
             elems.add(bindElem);
             System.out.println("Add bind elem "+bindElem.getSimpleName());
         }
+    }
+
+    private String getPackageName(TypeElement type) {
+        return mElementsUtil.getPackageOf(type).getQualifiedName().toString();
     }
 }

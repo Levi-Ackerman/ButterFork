@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.BindActivity;
 import com.example.BindView;
 
-@BindActivity
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.btn)
@@ -21,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        BindMainActivity.bindView(this);
+        mBtn.setText("changed");
+        mTextView.setText("changed too");
     }
 }
