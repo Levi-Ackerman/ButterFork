@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.example.BindView;
 
-import butterknife.ButterKnife;
+import top.lizhengxian.mybutterknife.MyButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BindMainActivity.bindView(this);
+        MyButterKnife.bindView(this);
         mBtn.setText("changed");
         mTextView.setText("changed too");
     }
