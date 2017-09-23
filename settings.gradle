@@ -1,1 +1,1 @@
-include ':app', ':apt-lib', ':annotationlib'
+include ':sample', ':mybutterknife-compiler', ':mybutterknife-annotations', ':mybutterknife'

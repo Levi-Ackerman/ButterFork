@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.example.BindView;
 
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.btn)
