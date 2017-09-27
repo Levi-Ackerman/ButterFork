@@ -32,7 +32,7 @@ import top.lizhengxian.butterfork.annotation.BindView;
 
 @AutoService(Processor.class)
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
-public class BindProcess extends AbstractProcessor{
+public class BindProcessor extends AbstractProcessor{
     private Elements mElementsUtil;
 
     /**
