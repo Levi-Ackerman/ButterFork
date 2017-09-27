@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId "top.lizhengxian.apt_sample"
+        applicationId "top.lizhengxian.butterfork.sample"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
@@ -27,7 +27,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    compile project(':mybutterknife-annotations')
-    compile project(':mybutterknife')
-    apt project(':mybutterknife-compiler')
+    compile project(':butterfork-annotations')
+    compile project(':butterfork')
+    apt project(':butterfork-compiler')
 }

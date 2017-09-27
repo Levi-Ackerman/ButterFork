@@ -1,1 +1,1 @@
-include ':sample', ':mybutterknife-compiler', ':mybutterknife-annotations', ':mybutterknife'
+include ':sample', ':butterfork-compiler', ':butterfork-annotations', ':butterfork'
