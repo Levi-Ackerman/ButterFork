@@ -1,4 +1,4 @@
-# 仿ButterKnife，实现自己的BindView
+# 一步一步，实现自己的ButterKnife
 ButterKnife插件的出现让Android程序员从繁琐的findViewById重复代码中解放出来，尤其搭配各种自动生成代码的Android Studio插件，更是如虎添翼。
 ButterKnife的实现原理，大家应该都有所耳闻，利用AbstractProcess，在编译时候为BindView注解的控件自动生成findViewById代码，ButterKnife#bind(Activity)方法，实质就是去调用自动生成的这些findViewById代码。
 然而，当我需要去了解这些实现细节的时候，我决定去看看ButterKnife的源码。ButterKnife整个项目涵盖的注解有很多，看起来可能会消耗不少的时间，笔者基于这些天的摸索的该项目的思路，实现了自己的一个BindView注解的使用，来帮助大家了解。
