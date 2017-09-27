@@ -17,7 +17,7 @@ import top.lizhengxian.butterfork.ButterFork;
  * *************************************************************
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
