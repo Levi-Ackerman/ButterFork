@@ -1,15 +1,13 @@
 package top.lizhengxian.butterfork.sample;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-
-import top.lizhengxian.butterfork.ButterFork;
+import top.lizhengxian.butterfork.annotation.BindLayout;
 import top.lizhengxian.butterfork.annotation.BindView;
 
-public class MainActivity extends AppCompatActivity {
+@BindLayout(R.layout.activity_main)
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.btn)
     protected Button mBtn;
@@ -17,11 +15,10 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.text)
     protected TextView mTextView;
 
+    //试着change一下text，看看views是不是真的实例化成功了
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterFork.bind(this);
+    protected void onStart() {
+        super.onStart();
         mBtn.setText("changed");
         mTextView.setText("changed too");
     }
