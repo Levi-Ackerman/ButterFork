@@ -6,3 +6,9 @@ dependencies {
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+
+version = '0.1.0'
+ext{
+    outlib = "$buildDir/libs/${project.getName()}-${project.version}.jar"
+}
+apply from:"../maven-publish.gradle"

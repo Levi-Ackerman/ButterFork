@@ -1,0 +1,40 @@
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.artifactory'
+
+
+group = 'top.lizhengxian'
+
+publishing {
+    publications {
+        aar(MavenPublication) {
+            groupId = project.group
+            version = project.version
+            artifactId = project.name;
+
+            // Tell maven to prepare the generated "* .aar" file for publishing
+            artifact(project.ext.outlib)
+        }
+    }
+}
+
+artifactory {
+    contextUrl = 'http://lizhengxian.top:8081/artifactory'
+    publish {
+        repository {
+            repoKey = 'libs-release-local'
+            username = rootProject.getPropertyFromLocalProperties('username')
+            password = rootProject.getPropertyFromLocalProperties('password')
+        }
+
+        defaults {
+            // Tell the Artifactory Plugin which artifacts should be published to Artifactory.
+            publications('aar')
+            publishArtifacts = true
+
+            // Properties to be attached to the published artifacts.
+            properties = ['qa.level': 'basic', 'dev.team': 'core']
+            // Publish generated POM files to Artifactory (true by default)
+            publishPom = true
+        }
+    }
+}
