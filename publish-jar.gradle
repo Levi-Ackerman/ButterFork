@@ -26,7 +26,7 @@ install {
         // This generates POM.xml with proper parameters
         pom {
             project {
-                packaging 'ar'
+                packaging 'jar'
                 name 'This is a annotation just like ButterKnife'
                 url siteUrl
                 licenses {
@@ -47,6 +47,7 @@ install {
                     developerConnection gitUrl
                     url siteUrl
                 }
+
             }
         }
     }

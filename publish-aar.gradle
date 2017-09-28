@@ -68,6 +68,14 @@ install {
                     developerConnection gitUrl
                     url siteUrl
                 }
+//                dependencies{
+//                    dependency{
+//                        groupId 'top.lizhengxian'
+//                        artifactId 'butter-annonations'
+//                        version '0.1.+'
+//                        scope 'compile'
+//                    }
+//                }
             }
         }
     }

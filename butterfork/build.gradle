@@ -20,8 +20,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'top.lizhengxian:butterfork-annotations:0.1.+'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':butterfork-annotations')
 }
 
 //发布到JCenter上的项目名字，必须填写
@@ -29,6 +29,6 @@ ext{
     libName = "butterfork"
 }
 // 版本号，下次更新是只需要更改版本号即可
-version = "0.0.6" //支持BindLayout的版本
+version = "0.1.0" //支持BindLayout的版本
 
 apply from:"../publish-aar.gradle"

@@ -4,7 +4,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.auto.service:auto-service:1.0-rc2'
     compile 'com.squareup:javapoet:1.7.0'
-    compile 'top.lizhengxian:butterfork-annotations:0.1.+'
+    //    compile 'top.lizhengxian:butterfork-annotations:0.1.+'
+    compile project(':butterfork-annotations')
 }
 
 sourceCompatibility = "1.7"
@@ -15,6 +16,6 @@ ext {
     apt_libName = "butterfork-compiler"
 }
 // 版本号，下次更新是只需要更改版本号即可
-version = "0.0.7" //0.0.7引入apt
+version = "0.1.0" //0.0.7引入apt
 
 apply from: "../publish-jar.gradle"
