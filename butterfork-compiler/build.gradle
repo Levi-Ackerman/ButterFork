@@ -4,15 +4,14 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.auto.service:auto-service:1.0-rc2'
     compile 'com.squareup:javapoet:1.7.0'
-    compile 'top.lizhengxian:butterfork-annotations:0.1.0'
-//    compile project(':butterfork-annotations')
+    compile project(':butterfork-annotations')
 }
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
 
-version = '0.1.0'
+version = '1.0.0-snapshot'
 ext{
     outlib = "$buildDir/libs/${project.getName()}-${project.version}.jar"
 }
