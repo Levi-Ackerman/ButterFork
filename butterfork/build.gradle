@@ -24,7 +24,7 @@ dependencies {
     compile project(':butterfork-annotations')
 }
 
-version = '1.0.0-snapshot'
+version = rootProject.ext.butterforkVersion
 ext{
     outlib = "$buildDir/outputs/aar/${project.getName()}-release.aar"
 }

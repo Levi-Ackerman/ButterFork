@@ -29,6 +29,13 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+ext{
+    annotationVersion = '1.0.0'
+    compilerVersion = '1.0.0'
+    butterforkVersion = '1.0.0'
+}
+
+
 def getPropertyFromLocalProperties(key) {
     File file = rootProject.file('local.properties');
     if (file.exists()) {

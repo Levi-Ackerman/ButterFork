@@ -11,7 +11,7 @@ sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
 
-version = '1.0.0-snapshot'
+version = rootProject.ext.compilerVersion
 ext{
     outlib = "$buildDir/libs/${project.getName()}-${project.version}.jar"
 }
