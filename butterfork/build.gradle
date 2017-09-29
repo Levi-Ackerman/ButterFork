@@ -29,6 +29,6 @@ ext{
     libName = "butterfork"
 }
 // 版本号，下次更新是只需要更改版本号即可
-version = "0.1.0" //支持BindLayout的版本
+version = "0.1.1" //支持BindLayout的版本
 
 apply from:"../publish-aar.gradle"
