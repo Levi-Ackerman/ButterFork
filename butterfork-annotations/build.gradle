@@ -7,10 +7,8 @@ dependencies {
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
-ext {
-    apt_libName = "butterfork-annotations"
+version = rootProject.ext.annotationVersion
+ext{
+    outlib = "$buildDir/libs/${project.getName()}-${project.version}.jar"
 }
-// 版本号，下次更新是只需要更改版本号即可
-version = "0.1.1" //0.1.0，实现BindView和BindLayout的版本
-
-apply from: "../publish-jar.gradle"
+apply from:"../maven-publish.gradle"
